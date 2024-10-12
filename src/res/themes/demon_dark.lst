@@ -1,0 +1,94 @@
+$ color_a::"#ff2b2b"
+$ color_b::"#0c0c0c"
+$ color_c::"#ffffff"
+$ border_a::"1px solid #ff2b2b"
+
+key,                               value
+"--font--default",                 "'Nunito'\c sans-serif"
+"--link-color",                    color_a
+"--active-status-color",           "#a4f572"
+"--input-border",                  "none"
+"--input-border-radius",           "5px"
+"--input-color",                   "#ffffff80"
+"--input-background",              "#ffffff10"
+"--input-box-shadow",              "none"
+"--input-autofill-border",         border_a
+"--input-autofill-color",          "#ffffff80"
+"--input-autofill-background",     "#272727"
+"--head-notification-badge-color", "#fc5d5d"
+"--head-color",                    "#fffffff7"
+"--head-background",               color_a
+"--head-border",                   "0px solid transparent"
+"--head-border-radius",            "0px 0px 22px 22px"
+"--head-box-shadow",               "0px 0px 35px 0px rgba(0\c0\c0\c0.4)"
+"--body-color",                    color_c
+"--body-background",               color_b
+"--nav-color",                     "#ffffff80"
+"--nav-background",                color_b
+"--nav-border-radius",             "0px 0px 15px 15px"
+"--nav-border-left",               "0px solid transparent"
+"--nav-box-shadow",                "0 1px 6px 0 rgb(0 0 0 / 40%)"
+"--search-border",                 "none"
+"--search-color",                  "#ffffff80"
+"--search-background",             "#ffffff10"
+"--search-box-shadow",             "none"
+"--profile-border",                "none"
+"--profile-border-radius",         "10px"
+"--profile-color",                 "#ffffff80"
+"--profile-background",            "#ffffff05"
+"--profile-box-shadow",            "none"
+"--button-border",                 border_a
+"--button-border-radius",          "5px"
+"--button-color",                  color_c
+"--button-background",             color_a
+"--button-box-shadow",             "none"
+"--box-border",                    "none"
+"--box-border-radius",             "5px"
+"--box-color",                     "#ffffff80"
+"--box-background",                "#ffffff07"
+"--box-box-shadow",                "none"
+"--box-a-border",                  "none"
+"--box-a-border-radius",           "5px"
+"--box-a-color",                   "#ffffff80"
+"--box-a-background",              "#ffffff07"
+"--box-a-box-shadow",              "none"
+"--progress-color",                "#222222"
+"--progress-bar-color",            color_a
+"--progress-background",           color_b
+"--progress-bg",                   "#ffffff25"
+"--e-img-head-background",         color_a
+"--e-img-head-color",              color_c
+"--e-img-foot-background",         "#262626"
+"--e-img-foot-color",              color_c
+"--e-img-background",              "#1c1c1c"
+"--e-img-color",                   "#ffffff90"
+"--e-img-border-radius",           "0px"
+"--e-img-border",                  "none"
+"--e-img-bg",                      "#000000b3"
+"--post-background",               "none"
+"--post-common-background",        "#ffffff08"
+"--post-common-color",             "#ffffff80"
+"--post-common-border",            "none"
+"--post-common-border-radius",     "5px"
+"--post-common-box-shadow",        "none"
+"--chatUi-head-background",        "#101010"
+"--chatUi-head-color",             "#ffffff90"
+"--chatUi-head-box-shadow",        "0px 0px 6px 1px rgb(0 0 0 / 30%)"
+"--chatUi-body-background",        "none"
+"--chatUi-foot-background",        "#101010"
+"--chatUi-foot-box-shadow",        "0px 0px 6px 1px rgb(0 0 0 / 30%)"
+"--chatUi-foot-btn-fg",            color_a
+"--chatUi-foot-btn-bg",            "#ffffff10"
+"--chatUi-msg-box-bg",             "#ffffff10"
+"--chatUi-msg-box-color",          "#bbb"
+"--chatUi-msg-send-bg",            "#ffffff08"
+"--chatUi-msg-send-color",         "#bbb"
+"--chatUi-msg-receive-bg",         "#ffffff08"
+"--chatUi-msg-receive-color",      "#bbb"
+"--chatUi-msg-btn-bg",             color_a
+"--chatUi-msg-btn-fg",             "#ffffff80"
+"--scrollbar-thumb-color",         "#ffffff10"
+"--scrollbar-thumb-hover-color",   "#ffffff15"
+"--scrollbar-thumb-active-color",  "#ffffff20"
+"--landscape-background",          "#ffffff05"
+"--landscape-border",              "none"

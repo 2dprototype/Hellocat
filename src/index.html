@@ -1,0 +1,553 @@
+
+
+<html>
+	<head>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' >
+		<title>Hellocat</title>
+		
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+		
+		<link rel="stylesheet" href="/lib/highlight/styles/atom-one-dark.css">
+		<link rel="stylesheet" href="/lib/css/jquery-ui.css">
+		<link rel="stylesheet" type="text/css" href="/css/styles.css">
+		<link rel="icon" type="image/x-icon" href="/res/favicon.ico">
+		<script src="/lib/svg-inject.min.js"></script>
+	</head>
+	<body>
+		<div style="display:none;" id="chat-ui">
+			<div class="main">
+				<div class="header">
+					<div class="mini-profile">
+						<div class="img">
+							<img class="profile-pic" src="/res/blank-profile.png"/>
+							<svg style="display:none;" class="state" height="10" width="10">
+								<circle cx="5" cy="5" r="5" fill="var(--active-status-color)" />
+							</svg>
+						</div>
+						<span class="username"><!-- name --></span>
+						<span class="status"><!-- name --></span>
+						<div id="fid-typing" style="display:none;">
+							Typing...
+						</div>
+					</div>
+					<div class="side-nav">
+						<div class="nav-close-btn">
+							<img onload="SVGInject(this)" src="/res/icon/x.svg" width="30" height="30"/>
+						</div>
+						<div class="content">
+							<div class="profile-grp">
+								<div class="img">
+									<img height="50" width="50" class="nav-profile-pic" src="/res/blank-profile.png"/>
+									<svg style="display:none;" class="nav-state" height="10" width="10">
+										<circle cx="5" cy="5" r="5" fill="var(--active-status-color)" />
+									</svg>
+								</div>
+								<div class="texts">
+									<h5 class="txt nav-title"></h5>
+									<h6 class="txt"><a class="nav-sub-title link"></a></h6>
+								</div>
+							</div>
+							<div class="info-grp">
+								<h6 class="n-info-active txt"></h6>
+								<h6 class="n-info-device txt"></h6>
+								<h6 class="n-info-country txt"></h6>
+								<h6 class="n-info-ip txt"></h6>
+							</div>
+							<div class="btn-grp">
+								<div class="a" href="#">
+									<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/chat-text.svg"/>
+									<span>Chats</span>
+								</div>
+								<div class="a" href="#">
+									<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/file-earmark-image.svg"/>
+									<span>Media</span>
+								</div>
+								<div class="a" href="#">
+									<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/clock-history.svg"/>
+									<span>History</span>
+								</div>
+								<div class="a" href="#">
+									<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/bell.svg"/>
+									<span>Notification</span>
+								</div>
+								<div class="a" href="#">
+									<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/gear.svg"/>
+									<span>Settings</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="side-menu">
+						<div class="close-btn">
+							<img onload="SVGInject(this)" width="20" height="20" src="/res/icon/fill/close.svg"/>
+						</div>
+					</div>
+				</div>
+				<div class="body">
+					<div class="content-head">
+						<!-- <button>Load Old Message</button> -->
+						<input type="button" class="load-more" value="Load More"/>
+					</div>
+					<div id="chat-ui-msg-body" class="content-body"></div>
+					<div class="content-foot"></div>
+				</div>
+				<div class="footer">
+					<div id="message-box">
+						<div class="dropdown btn">
+							<button id="message-more">
+								<img onload="SVGInject(this)" width="20" height="20" src="/res/icon/fill/more_horiz.svg"/>
+							</button>
+							<div id="msg-more-option">
+								<div class="item">
+									<button>
+										<img onload="SVGInject(this)" width="20" height="20" src="/res/icon/fill/photo_camera.svg"/>
+									</button>
+									<span>Camera</span>
+								</div>
+								<div class="item">
+									<button>
+										<img onload="SVGInject(this)" width="20" height="20" src="/res/icon/fill/mic.svg"/>
+									</button>
+									<span>Voice</span>
+								</div>	
+								<div class="item">
+									<button>
+										<img onload="SVGInject(this)" width="20" height="20" src="/res/icon/fill/upload_file.svg"/>
+									</button>
+									<span>File</span>
+								</div>
+								<div class="item">
+									<button>
+										<img onload="SVGInject(this)" width="20" height="20" src="/res/icon/fill/code.svg"/>
+									</button>
+									<span>Code</span>
+								</div>
+								<div class="item">
+									<button>
+										<img onload="SVGInject(this)" width="20" height="20" src="/res/icon/fill/distance.svg"/>
+									</button>
+									<span>Location</span>
+								</div>
+							</div>
+						</div>
+						<div class="btn">
+							<button id="message-image">
+								<img onload="SVGInject(this)" width="20" height="20" src="/res/icon/fill/add_photo_alternate.svg"/>
+							</button>
+						</div>
+						<div id="autocomplete-suggestions" class="message-box"></div>
+						<textarea spellcheck="false" id="message-text"></textarea>
+						<div class="btn">
+							<button id="message-send">
+								<div class="icon">
+									<img onload="SVGInject(this)" width="20" height="20" src="/res/icon/fill/send.svg"/>
+								</div>
+								<img style="display:none;" class="icon" width="20" height="20" src="/res/emoji/u2764.svg"/>
+							</button>
+						</div>
+						<div id="msg-reply-bg">
+							<button style="display:none" id="msg-reply-btn">
+								<img onload="SVGInject(this)" width="20" height="20" src="/res/icon/fill/close.svg"/>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="chat-code-write" class="sub-ui">
+				<textarea spellcheck="false"></textarea>
+				<div class="foot">
+					<button class="button">
+						<img onload="SVGInject(this)" src="/res/icon/fill/close.svg" width="15" height="15"/>
+					</button>
+					<select name="language"></select>
+					<button class="button">
+						<img onload="SVGInject(this)" src="/res/icon/fill/send.svg" width="15" height="15"/>
+					</button>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div style="display:none;" id="login-account" class="div-box">
+			<img onload="SVGInject(this)" class="icon-hellocat" src="/res/logo/icon.svg" width="100" height="100"/>
+			<h3>Login to Hellocat</h3>
+			<input spellcheck="false" type="email" placeholder="Email..."/>
+			<input spellcheck="false" type="password" placeholder="Password..."/>
+			<button>Sign Up</button>
+			<h6>Don't have account? <span class="link">Sign Up</span></h6>
+		</div>
+		
+		<div style="display:none;" id="verify-email" class="div-box">
+			<!-- <div class="img"> -->
+			<!-- <img onload="SVGInject(this)" class="icon-hellocat" src="/res/logo/icon.svg" width="100" height="100"/> -->
+			<!-- </div> -->
+			<h3>Email Verification</h3>
+			<h5>We have sent you an email to your provided email. Click the link to verify your account.</h5>
+			<div class="page">
+				<input spellcheck="false" type="email" placeholder="Email" disabled="true"/>
+				<input type="button" value="Change Email?"/>
+			</div>	
+			<h6>Didn't get any verification email? <span class="link">Send Again</span></h6>
+		</div>
+		
+		<div style="display:none;" id="create-account" class="div-box">
+			<div class="img">
+				<img onload="SVGInject(this)" class="icon-hellocat" src="/res/logo/icon.svg" width="100" height="100"/>
+			</div>
+			<h3>Welcome to Hellocat</h3>
+			<div class="page">
+				<input spellcheck="false" type="email" placeholder="Email"/>
+				<input spellcheck="false" type="password" placeholder="Password"/>
+				<input spellcheck="false" type="password" placeholder="Confirm Password"/>
+				<button>Sign Up</button>
+			</div>	
+			<h6>Already have account? <span class="link">Sign In</span></h6>
+		</div>
+		
+		<div style="display:none;" id="create-profile" class="div-box">
+			<h3>Fill up your informations.</h3>
+			<div class="page">
+				<input maxLength="18" spellcheck="false" type="text" placeholder="First Name"/>
+				<input maxLength="18" spellcheck="false" type="text" placeholder="Last Name"/>
+				<input maxLength="29" spellcheck="false" type="text" placeholder="Username"/>
+				<input type="date"/>
+				<select name="gender">
+					<option value="male">Male</option>
+					<option value="female">Female</option>
+					<option value="other">Other</option>
+				</select>
+				<button>Done</button>
+			</div>
+		</div>
+		
+		<div style="display:none;" id="main-body">
+			<div class="head">
+				<div class="mini-profile">
+					<img class="profile-pic" src="/res/blank-profile.png" width="40" height="40"/>
+					<span class="username"><!-- name --></span>
+				</div>
+				<div class="top-buttons">
+					<!-- <div class="icon notification"> -->
+					<!-- <img onload="SVGInject(this)" src="/res/icon/fill/notification.svg" width="25" height="25"/> -->
+					<!-- <span class="badge">0</span> -->
+					<!-- </div> -->
+					<!-- <div class="icon menu"> -->
+					<!-- <img onload="SVGInject(this)" src="/res/icon/list.svg" width="25" height="25"/> -->
+					<!-- </div> -->
+				</div>
+				<div class="side-nav">
+					<div class="close-btn">
+						<img onload="SVGInject(this)" src="/res/icon/x.svg" width="30" height="30"/>
+					</div>
+					<div class="a" href="#">
+						<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/chat-text.svg"/>
+						<span>Chats</span>
+					</div>
+					<div class="a" href="#">
+						<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/person-circle.svg"/>
+						<span>Profile</span>	
+					</div>
+					<div class="a" href="#">
+						<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/person-check.svg"/>
+						<span>Friends</span>	
+					</div>
+					<div class="a" href="#">
+						<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/people.svg"/>
+						<span>Find Friends</span>
+					</div>
+					<div class="a" href="#">
+						<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/gear.svg"/>
+						<span>Settings</span>	
+					</div>
+					<div class="a" href="#">
+						<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/box-arrow-left.svg"/>
+						<span>Sign Out</span>
+					</div>
+					<div class="a" href="#">
+						<img class="icon" onload="SVGInject(this)" width="18" height="18" src="/res/icon/b/info-circle.svg"/>
+						<span>About</span>	
+					</div>
+				</div>
+			</div>
+			<div id="body">			
+				<div style="display:none;"  id="home">
+					<div style="margin:10px;opacity:0.5;">
+						<h2 style="display: flex;align-content: center;align-items: center;">HELLOCAT<img src="/res/logo/icon.svg" onload="SVGInject(this)" width="50" height="50" style="margin-left: 10px;"/></h2>
+						<h5>A Vanilla JS + Firebase Chat App by <a class="link" href="https://github.com/2dprototype">@2dprototype</a>.</h5>	
+						<b>Hellocat</b> is a lightweight, real-time chat application built with vanilla JavaScript and Firebase. It allows users to chat instantly with easy-to-use features like media sharing and smooth UI interactions.
+						<br />
+						<br />
+						<span id="total-visited">-</span>
+					</div>
+				</div>
+				
+				<div style="display:none;"  id="chats">
+					<div class="header">
+						<div class="input-button-group">
+							<input type="text" placeholder="Search..">
+							<button id="search-cross">
+								<img onload="SVGInject(this)" class="icon" src="/res/icon/fill/close.svg" width="25" height="25"/>
+							</button>
+						</div>	
+					</div>
+					<div class="body"></div>
+					<div class="footer">
+						<button class="new">
+							<img src="/res/icon/add.svg" onload="SVGInject(this)"/>
+						</button>
+					</div>
+				</div>
+				<div style="display:none;" id="friend-list">
+					<div class="header">
+						<div class="input-button-group">
+							<input type="text" placeholder="Search..">
+							<button id="message-send-more-button">
+								<img onload="SVGInject(this)" class="icon" src="/res/icon/fill/close.svg" width="25" height="25"/>
+							</button>
+						</div>
+					</div>
+					<div class="buttons">
+						<input class="button" type="button" value="Friends"/>
+						<input class="button" type="button" value="Pending"/>
+						<input class="button" type="button" value="Requests"/>
+					</div>
+					<div class="flexy-box friends-list">A</div>
+					<div class="flexy-box friends-pending">B</div>
+					<div class="flexy-box friends-requests">C</div>
+				</div>
+				
+				<div style="display:none;"  id="find-friends">
+					<div class="header">
+						<div class="input-button-group">
+							<input type="text" placeholder="Search..">
+							<button id="search-cross">
+								<img onload="SVGInject(this)" class="icon" src="/res/icon/fill/search.svg" width="25" height="25"/>
+							</button>
+						</div>		
+					</div>
+					<div class="user-list"></div>
+				</div>
+				
+				<div style="display:none;"  id="view-profile">
+					<div class="img">
+						<img class="profile-pic" src="/res/blank-profile.png" width="100" height="100"/>
+						<svg style="display:none" class="state" height="16" width="16">
+							<circle cx="10" cy="10" r="7" stroke="var(--body-background)" stroke-width="2" fill="var(--active-status-color)" />
+						</svg>
+					</div>
+					<div class="box">
+						<p class="text name">
+							<span><!-- User's Name --></span>
+						</p>
+						<h6 class="text">
+							<p class="followers"></p>
+							<p class="following"></p>
+						</h6>
+						<h5 class="text username"><!-- User's URL --></h5>
+					</div>
+					<div class="box btn-grp">
+						<input style="display:none;margin-right:10px;" class="button" type="button" value="Follow"/>
+						<input style="display:none;margin-left:10px;" class="button" type="button" value="Add Friend"/>
+					</div>
+					<div class="box bio-grp">
+						<p class="text userbio"><!-- bio --></p>
+						<button style="display:none;" class="button">View Full</button>
+					</div>
+					<div class="box elm-grp">
+						<div class="elm">
+							<img src="/res/icon/fill/send.svg" height="24" width="24" class="icon" onload="SVGInject(this)"/>
+							<span class="user-posts">Total Posts : -</span>
+						</div>
+						<div class="elm">
+							<img src="/res/icon/fill/cake.svg" height="24" width="24" class="icon" onload="SVGInject(this)"/>
+							<span class="user-birth">Birthday : -</span>
+						</div>	
+						<div class="elm">
+							<img id="gender-icon-male" src="/res/icon/fill/male.svg" height="24" width="24" class="icon" onload="SVGInject(this)"/>
+							<img style="display:none" id="gender-icon-female" src="/res/icon/fill/female.svg" height="24" width="24" class="icon" onload="SVGInject(this)"/>
+							<span class="user-gender">Gender : -</span>
+						</div>
+						<div class="elm">
+							<img src="/res/icon/fill/calendar_month.svg" height="24" width="24" class="icon" onload="SVGInject(this)"/>
+							<span class="user-joined">Joined : -</span>
+						</div>
+						<div class="elm">
+							<img src="/res/icon/fill/schedule.svg" height="24" width="24" class="icon" onload="SVGInject(this)"/>
+							<span class="last-online">Last Online : -</span>
+						</div>
+					</div>
+					<div class="box fnd-grp">
+						<span>Friends</span>
+						<div class="fnd-grp-body"></div>
+					</div>
+					
+				</div>	
+			</div>
+		</div>
+		
+		<div style="display:none;" id="settings">
+			<div class="box" id="box-head">
+				<div class="text">
+					<img class="icon" onload="SVGInject(this)" src="/res/icon/fill/settings.svg" width="25" height="25"/>
+					<span>Settings</span> 	 
+				</div>
+				<div class="close-btn">
+					<img onload="SVGInject(this)" src="/res/icon/x.svg" width="25" height="25"/>
+				</div>			
+			</div>
+			<div id="options" class="box">
+				<p class="btn" href="#">Profile Settings</p>
+				<p class="btn" href="#">Login History</p>
+				<p class="btn" href="#">Theme Settings</p>
+				<p class="btn" href="#">Privacy Settings</p>
+				<p class="btn" href="#">Security Settings</p>
+				<p class="btn" href="#">Reoprt Bug</p>
+				<p class="btn" href="#">Feature Request</p>
+			</div>
+			<div style="display:none;" id="profile-settings" class="box">
+				<div class="profile-box">
+					<img class="profile-pic" src="/res/blank-profile.png" width="100" height="100"/>
+					<div class="mini-details">
+						<span></span>
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+				<p>
+					<input maxLength="18" spellcheck="false" type="text" placeholder="First Name"/>
+					<input maxLength="18" spellcheck="false" type="text" placeholder="Last Name"/>
+				</p>
+				<input spellcheck="false" type="text" placeholder="User URL" disabled="true"/>
+				<input spellcheck="false" type="email" placeholder="Email Address" disabled="true"/>
+				<input type="date" placeholder="Date Of Birth..."/>
+				<p>
+					<input spellcheck="false" type="text" placeholder="Geo Location..." disabled="true"/>
+					<input type="button" value="Get"/>
+				</p>
+				<select name="gender">
+					<option value="male">Male</option>
+					<option value="female">Female</option>
+					<option value="custom">Custom</option>
+				</select>
+				<textarea maxlength="999" spellcheck="false"></textarea>
+				<p><button>Update</button><button>Cancel</button></p>
+			</div>
+			<div style="display:none;" id="history-settings">
+				<!-- <span>Login Graph</span> -->
+				<canvas id="login-history-chart"></canvas>
+				<div id="login-history"></div>
+			</div>
+			<div style="display:none;"  id="theme-settings" class="box">
+				<select name="collection"></select>
+				<p><button>Custom</button><button>Reset</button></p>
+			</div>	
+			<div id="theme-editor" class="edit-image-bg" style="display:none;">
+				<div class="edit-image main">
+					<div class="header">
+						<span class="title">Theme Editor</span>
+						<div class="close-btn bbtn">
+							<img onload="SVGInject(this)" class="close" src="/res/icon/x.svg" height="30" width="30"/>
+						</div>
+					</div>
+					<div class="body"></div>
+					<div class="sub-body"></div>
+					<div class="footer">
+						<button class="btn bbtn">
+							<img onload="SVGInject(this)" src="/res/icon/fill/upload_file.svg" width="18" height="18"/>
+						</button>
+						<button class="btn bbtn">
+							<img onload="SVGInject(this)" src="/res/icon/fill/download.svg" width="18" height="18"/>
+						</button>
+						<button class="btn bbtn">
+							<img onload="SVGInject(this)" src="/res/icon/fill/done.svg" width="18" height="18"/>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- <div id="my_camera"></div> -->
+		
+	</body>
+	<!-- firebase libs -->
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script> 
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script> 
+	<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+	<!-- css -->
+	<link rel="stylesheet" type="text/css" href="/lib/css/cropper.min.css">
+	<link rel="stylesheet" type="text/css" href="/lib/css/jquery.highlighttextarea.css">
+	<link rel="stylesheet" type="text/css" href="/lib/css/katex.min.css">
+	<!-- libs -->
+	<script src="/lib/jquery.min.js"></script>
+	<script src="/lib/jquery.ba-resize.min.js"></script>
+	<script src="/lib/jquery-ui.min.js"></script>
+	<script src="/lib/jquery.highlighttextarea.min.js"></script>
+	<script src="/lib/long-press-event.min.js"></script>
+	<script src="/lib/katex.min.js"></script>
+	<script src="/lib/router.js"></script>
+	<script src="/lib/cropper.min.js"></script>
+	<script src="/lib/FileSaver.min.js"></script>
+	<script src="/lib/clipboard.min.js"></script>
+	<script src="/lib/lst.1.0.1.js"></script>
+	<script src="/lib/webcam.min.js"></script>
+	<script src="/lib/caman.full.min.js"></script>
+	<script src="/lib/recorder.js"></script>
+	<script src="/lib/spark-md5.min.js"></script>
+	<script src="/lib/crypto-js.min.js"></script>
+	<script src="/lib/ua-parser.min.js"></script>
+	<script src="/lib/highlight/highlight.min.js"></script>
+	<script src="/lib/Chart.min.js"></script>
+	<script src="/lib/app-info-parser.js"></script>
+	<script src="/lib/threejs/three.min.js"></script>
+	<script src="/lib/threejs/OBJLoader.js"></script>
+	<script src="/lib/threejs/OrbitControls.js"></script>
+	
+	<!-- scripts -->
+	<script src="/js/audioplayer.js"></script> 
+	<script src="/js/randomString.js"></script> 
+	<script src="/js/regex.js"></script> 
+	<script src="/js/func.js"></script> 
+	<script src="/js/emoji/emoji_data.js"></script> 
+	<script src="/js/emoji/emoji.js"></script> 
+	<script src="/js/emoji/file_icon.js"></script> 
+	<script src="/js/string_parser.js"></script> 
+	<script src="/js/friendship.js"></script> 
+	<script src="/js/history.js"></script> 
+	<script src="/js/conversation.js"></script> 
+	<script src="/js/follow.js"></script> 
+	<script src="/js/autoProfileImage.js"></script> 
+	<script src="/js/theme.js"></script> 
+	<script src="/js/fileViewer.js"></script> 
+	<script src="/js/loadFriends.js"></script> 
+	<script src="/js/progressBar.js"></script> 
+	<script src="/js/ImageUploader.js"></script> 
+	<script src="/js/WebImageEditor.js"></script> 
+	<script src="/js/WebCamUI.js"></script> 
+	<script src="/js/VoiceUI.js"></script> 
+	<script src="/js/mainBody.body.viewProfile.js"></script> 
+	<script src="/js/mainBody.body.findFriends.js"></script> 
+	<script src="/js/mainBody.body.friendList.js"></script> 
+	<script src="/js/mainBody.body.home.js"></script> 
+	<script src="/js/mainBody.body.chats.js"></script> 
+	<script src="/js/mainBody.body.js"></script> 
+	<script src="/js/mainBody.head.js"></script> 
+	<script src="/js/mainBody.js"></script> 
+	<script src="/js/loginAccount.js"></script> 
+	<script src="/js/emailVerify.js"></script> 
+	<script src="/js/createProfile.js"></script> 
+	<script src="/js/createAccount.js"></script> 
+	<script src="/js/chat_ui.js"></script> 
+	<script src="/js/settings.profileSettings.js"></script> 
+	<script src="/js/settings.historySettings.js"></script> 
+	<script src="/js/settings.themeSettings.js"></script> 
+	<script src="/js/settings.js"></script> 
+	<script src="/js/App.js"></script> 
+	<script src="/js/main.js"></script> 
+</html>
+
