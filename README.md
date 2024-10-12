@@ -1,7 +1,15 @@
 ## Hellocat
-**A Vanilla JS + Firebase Chat!
+**A Vanilla JS + Firebase Chat!**
 
 ---
+
+### Demo
+Here is a [demo](https://hellocat-0.web.app/)!
+
+### Preview
+
+![preview_0](./preview/preview_0.png)
+![preview_1](./preview/preview_1.png)
 
 ### Overview  
 **Hellocat** is a lightweight, real-time chat application built with vanilla JavaScript and Firebase. It allows users to chat instantly with easy-to-use features like media sharing and smooth UI interactions.
@@ -15,52 +23,55 @@
    cd Hellocat
    ```
 
-2. Add your Firebase configuration in the project.  
+2. Add your `Firebase configuration` in the project.  
 
-3. Launch the app using a local server:
+3. Launch the app using a dev server:
    ```bash
-   npx http-server
+   cd dev
+   npm install
+   node server.js
    ```
-   Access the app at `http://localhost:8080`.
+   Access the app at `http://localhost:5600`.
 
 ---
+
+### Firebase Hosting Setup
+
+1. Setup a Firebase Project *(Authentication[Email/Password], Hosting, Firestore, Realtime DB, Storage)*.
+
+2. Grab the `firebase config` and set it to [main.js](src/js/main.js)
+
+3. Setup firebase to your project in the root dir using `firebase init` command.
+
+4. Then modify the `firebase.json` like this,
+
+```json
+{
+    "hosting": {
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+		],
+		"cleanUrls": true,
+		"site": "hellocat",
+		"public": "src",
+        "rewrites": [
+            {
+                "destination": "/index.html",
+                "source": "**"
+			},
+			{
+				"source": "!/@(js|css|lib|fonts|res)/**",
+				"destination": "/index.html"
+			} 
+		]
+	}
+}
+```
+
 
 ### Libraries Used  
-Below are the libraries integrated into Hellocat for various features:
-
-1. **UI/UX and Interaction:**
-   - **jQuery** (`jquery.min.js`): DOM manipulation and AJAX.
-   - **jQuery UI** (`jquery-ui.min.js`): Adds UI components and effects.
-   - **Clipboard.js** (`clipboard.min.js`): Copy text to the clipboard.
-   - **Cropper.js** (`cropper.min.js`): Crop images directly in the browser.
-   - **Highlight.js** (`highlight.min.js`): Code syntax highlighting.
-   - **long-press-event.js** (`long-press-event.min.js`): Long press detection.
-   - **KaTeX** (`katex.min.js`): Render math expressions in chats.
-   - **jQuery HighlightTextarea** (`jquery.highlighttextarea.min.js`): Highlight text inside textareas.
-
-2. **Media Handling:**
-   - **Webcam.js** (`webcam.min.js`): Capture and upload images.
-   - **Recorder.js** (`recorder.js`): Record audio in-browser.
-
-3. **File and Data Handling:**
-   - **CryptoJS** (`crypto-js.min.js`): Data encryption.
-   - **FileSaver.js** (`FileSaver.min.js`): Save files from the browser.
-   - **SparkMD5** (`spark-md5.min.js`): Generate MD5 hashes.
-   - **UA Parser** (`ua-parser.min.js`): Detect user agents.
-
-4. **Graphing and Visuals:**
-   - **Chart.js** (`Chart.min.js`): Display charts and graphs.
-   - **Three.js** (`three.min.js`): Render 3D models in the chat.
-
-5. **Routing:**
-   - **Router.js** (`router.js`): Manage client-side routes.
-
-6. **Application Info Parser:**
-   - **app-info-parser.js:** Extract application details.
-
----
-
-### Credits  
 Special thanks to the authors of the following open-source libraries:  
 - [jQuery](https://jquery.com/)  
 - [Chart.js](https://www.chartjs.org/)  
